@@ -24,9 +24,9 @@ export default function NoticePage() {
   const [selectedCategory, setSelectedCategory] = useState('전체');
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
       {/* 사이드바 */}
-      <aside className="w-64 bg-gray-200 p-6">
+      <aside className="w-full md:w-64 bg-white border-r border-gray-300 p-6 backdrop-blur-lg shadow-sm">
         <h2 className="text-lg font-bold mb-4">고객센터</h2>
         <ul className="space-y-2">
           <li className="text-blue-600 font-bold">공지사항</li>
@@ -46,17 +46,17 @@ export default function NoticePage() {
       </aside>
 
       {/* 메인 콘텐츠 */}
-      <main className="flex-1 bg-white p-8">
+      <main className="flex-1 bg-white p-8 shadow-sm border-l border-gray-300">
         {/* 제목 */}
         <h1 className="text-2xl font-bold mb-6">공지사항</h1>
 
         {/* 탭 메뉴 */}
-        <div className="border-b flex space-x-4 text-gray-600">
+        <div className="border-b border-gray-300 flex space-x-4 text-gray-600">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`pb-2 px-3 ${selectedCategory === category ? 'text-blue-600 border-b-2 border-blue-600 font-bold' : ''}`}
+              className={`pb-2 px-4 rounded-full transition duration-300 ${selectedCategory === category ? 'text-blue-600 border-b-2 border-blue-600 font-bold bg-blue-100' : ''}`}
             >
               {category}
             </button>
@@ -65,21 +65,21 @@ export default function NoticePage() {
 
         {/* 검색 바 */}
         <div className="relative mt-4 mb-4">
-          <input type="text" placeholder="공지사항 검색" className="w-full border rounded p-2 pl-10" />
+          <input type="text" placeholder="공지사항 검색" className="w-full border border-gray-300 rounded p-2 pl-10 shadow-sm focus:ring-2 focus:ring-blue-300" />
           <FaSearch className="absolute left-3 top-3 text-gray-500" />
         </div>
 
         {/* 공지사항 목록 */}
-        <table className="w-full border-t mt-4">
+        <table className="w-full border-t border-gray-300 mt-4">
           <thead>
-            <tr className="text-left text-gray-500 border-b">
+            <tr className="text-left text-gray-500 border-b border-gray-300">
               <th className="py-2 px-4">제목</th>
               <th className="py-2 px-4 text-right">날짜</th>
             </tr>
           </thead>
           <tbody>
             {notices.map((notice, index) => (
-              <tr key={index} className="border-b hover:bg-gray-50">
+              <tr key={index} className="border-b border-gray-300 hover:bg-gray-50 odd:bg-gray-50 even:bg-white transition duration-300">
                 <td className="py-3 px-4 flex items-center space-x-2">
                   <FaThumbtack className="text-blue-500" />
                   <span>{notice.title}</span>

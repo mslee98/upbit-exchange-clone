@@ -58,8 +58,10 @@ const SignUpAgreement = ({setNextYn}) => {
                     onChange={handleAllChange}
                     className="h-4 w-4 text-blue-500"
                 />
-                <label htmlFor="all" className="ml-2 text-sm font-medium">전체 동의 (선택사항 포함)</label>
+                <label htmlFor="all" className="ml-2 text-sm font-medium mb-2 mt-2">전체 동의 (선택사항 포함)</label>
             </div>
+
+            <div className="w-full border-b border-gray-300"></div>
 
             {/* 개별 동의 체크박스들 */}
             <div className="flex items-center">
@@ -128,10 +130,10 @@ const SignUpAgreement = ({setNextYn}) => {
                     onChange={handleAgreementChange}
                     className="h-4 w-4 text-blue-500"
                 />
-                <label htmlFor="marketing" className="ml-2 text-sm">[선택] 이벤트, 우대 혜택 수신 동의</label>
+                <label htmlFor="marketing" className="ml-2 text-sm ">[선택] 이벤트, 우대 혜택 수신 동의</label>
             </div>
         </div>
-        <div className="bg-white p-3 rounded-md max-h-32 overflow-y-auto text-sm ">
+        <div className="bg-white p-3 rounded-md max-h-32 overflow-y-auto text-sm mt-2 ">
             <p className="text-sm">이메일, 문자 메시지 등을 통해 업비트의 최신 이벤트, 프로모션 및 혜택에 대한 정보를 수신할 수 있습니다.</p>
         </div>
 

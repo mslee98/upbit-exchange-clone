@@ -4,9 +4,9 @@ import Image from "next/image";
 
 const LogoHeader = () => {
     return (
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-2">
             <Image
-                src={"/Upbit_logo.png"}
+                src={"/images/Upbit.png"}
                 width={300}
                 height={50}
                 alt="Upbit logo"
