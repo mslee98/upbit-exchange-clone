@@ -6,7 +6,7 @@ const LogoHeader = () => {
     return (
         <div className="flex justify-center mb-6">
             <Image
-                src={"/Upbit_Logo.png"}
+                src={"/Upbit_logo.png"}
                 width={300}
                 height={50}
                 alt="Upbit logo"
