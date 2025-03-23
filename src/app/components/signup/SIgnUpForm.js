@@ -103,6 +103,38 @@ const SignUpForm = () => {
 
     return (
         <>
+            {signUpYn && 
+                 <div className="fixed inset-0 flex justify-center items-center bg-opacity-50 z-50">
+                     <div className="bg-white p-6 rounded-lg w-[90%] max-w-md shadow-lg">
+                         <h2 className="text-lg font-bold mb-3">전기통신금융사기 주의 안내</h2>
+                         <p className="text-sm text-gray-600">
+                             최근 디지털 자산을 이용한 전기통신금융사기 피해 (보이스피싱)가 많이 발생하고 있어 업비트 웹 회원가입에서는 따로 승인 과정을 받고 있습니다. <br />
+                             <a href="#" className="text-blue-500 hover:underline">피해 사례 알아보기 &gt;</a>
+                         </p>
+                         <ul className="mt-4 space-y-2 text-sm text-gray-700">
+                             <li className="flex items-start"><span className="text-green-500 mr-2">✔</span> 국내외 거래소 임직원 및 금융기관 담당자가 금융정보 요구 및 입금을 유도했나요?</li>
+                             <li className="flex items-start"><span className="text-green-500 mr-2">✔</span> SNS, 데이팅 앱에서 친해진 외국인이 해외 거래 사이트를 소개하며 회원가입을 유도했나요?</li>
+                             <li className="flex items-start"><span className="text-green-500 mr-2">✔</span> 투자 손실 금액을 보존해준다며 특정 사이트 가입, 앱 설치 및 지갑 생성을 요구했나요?</li>
+                         </ul>
+                         <p className="text-sm text-gray-600 mt-4">
+                             위 항목 중 하나라도 해당된다면, 보이스피싱 사기일 수 있습니다.<br />
+                             의심이 든다면 즉시 거래를 멈추고 <a href="tel:1533-1111" className="text-blue-500 hover:underline">업비트 보이스피싱 콜센터 (1533-1111)</a>에 연락하세요.
+                         </p>
+                         <div className="mt-6 flex justify-between">
+                             <button  
+                                 className="w-1/2 bg-gray-200 text-gray-700 py-2 rounded-md mr-2 hover:bg-gray-300">
+                                 닫기
+                             </button>
+                             <button 
+                                 onClick={handleToLogin} 
+                                 className="w-1/2 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+                                 이용하기
+                             </button>
+                         </div>
+                     </div>
+                 </div>
+             }
+
             <form onSubmit={handleSubmit} className="space-y-6 mt-8">
                 {errors.form && <p className="text-red-500 text-sm">{errors.form}</p>}
 
