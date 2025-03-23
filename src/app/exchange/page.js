@@ -328,13 +328,15 @@ export default function Exchange() {
           </div>
         )}
 
-      <AssetsStatusComponent coins={sampleData} coinClick={handleClick} />
+        <div className="flex-1 flex p-3 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 gap-3 flex-col md:flex-row">
+          <AssetsStatusComponent coins={sampleData} coinClick={handleClick} />
 
-      {/* Center Content */}
-      <CheckingAccountComponent selectedCoin={selectedCoin} handleTransactionClick={handleTransactionClick}/>
+          {/* Center Content */}
+          <CheckingAccountComponent selectedCoin={selectedCoin} handleTransactionClick={handleTransactionClick}/>
 
-      {/* Right Sidebar */}
-      <CoinList/>
+          {/* Right Sidebar */}
+          <CoinList/>
+        </div>
     </>
   );
 }

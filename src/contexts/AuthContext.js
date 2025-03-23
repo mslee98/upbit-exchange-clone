@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import supabase from "../Lib/supabase";
 
 const AuthContext = createContext();
@@ -10,6 +10,8 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
+    const pathname = usePathname();
+
 
     const logout = async () => {
         await supabase.auth.signOut();  // Supabase 로그아웃 함수
@@ -47,21 +49,35 @@ export const AuthProvider = ({ children }) => {
       };
 
       useEffect(() => {
-        const session = supabase.auth.getSession();
-        if (session) {
-          setUser(session.user);
-        }
-    
+        const checkSession = async () => {
+          const session = await supabase.auth.getSession(); // 비동기적으로 세션을 받아옵니다.
+          if (session?.data.session) {
+            setUser(session.data.session.user);  // 세션이 있으면 유저 설정
+          } else {
+            setUser(null);  // 세션이 없으면 유저를 null로 설정
+          }
+          setLoading(false); // 로딩 상태를 해제
+        };
+      
+        checkSession(); // 컴포넌트가 처음 마운트될 때 세션 확인
+      
         const { data: authListener } = supabase.auth.onAuthStateChange(
           (event, session) => {
             setUser(session?.user ?? null);
             setLoading(false);
-            if (!session) {
+      
+            // 세션이 없고, 특정 경로가 아니라면 로그인 페이지로 이동
+            if (!session && 
+                pathname !== "/login" && 
+                pathname !== "/signup" && 
+                pathname !== "/") {
+
+              
               router.push('/login');
             }
           }
         );
-    
+      
         return () => {
           authListener?.unsubscribe();
         };

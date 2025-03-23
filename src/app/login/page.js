@@ -35,50 +35,6 @@ const Login = () => {
         }
 
         setLoading(false);
-
-        // try {
-        //     // 입력한 id를 통해 해당 email을 가져오기 위해 profiles 테이블에서 검색
-        //     const { data: profileData, error: profileError } = await supabase
-        //         .from("profiles")
-        //         .select("id, email, approved")
-        //         .eq("username", id) // eq는 조건을 지정하는 올바른 방식입니다.
-        //         .single();
-
-        //     if (profileError) {
-        //         setError("사용자를 찾을 수 없습니다.");
-        //         setLoading(false);
-        //         return;
-        //     }
-
-        //     // 사용자의 승인 상태 확인
-        //     if (profileData.approved === false) {
-        //         setError("승인이 완료되지 않은 계정입니다. 관리자에게 문의하세요.");
-        //         setLoading(false);
-        //         return;
-        //     }
-
-        //     // 이메일을 이용해 로그인 시도
-        //     const { data, error: loginError } = await supabase.auth.signInWithPassword({
-        //         email: profileData.email,
-        //         password,
-        //     });
-
-        //     if (loginError) {
-        //         setError("로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요.");
-        //         setLoading(false);
-        //         return;
-        //     }
-            
-
-        //     // 승인된 계정이면 /exchange로 이동
-        //     setUser(profileData);
-        //     router.push("/exchange");
-        // } catch (err) {
-        //     setError("로그인 중 오류가 발생했습니다.");
-        //     setLoading(false);
-        // } finally {
-        //     setLoading(false);
-        // }
     };
 
     return (

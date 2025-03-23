@@ -1,7 +1,9 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import 'swiper/css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Security from "./components/Security";
 
 import { AuthProvider } from "@/contexts/AuthContext";
 
@@ -28,12 +30,16 @@ export default function RootLayout({ children }) {
         <body
           className={`${roboto.variable} antialiased bg-[#eaecf0]`}
         >
+
+            <Security/>
             <div className="flex flex-col min-h-screen">
               {/* Header */}
               <Header/>
 
+
               {/* Main Content */}
-              <main className="flex-1 flex p-3 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 gap-3 flex-col md:flex-row">
+              {/* <main className="flex-1 flex p-3 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 gap-3 flex-col md:flex-row"> */}
+              <main>
                 {children}
               </main>
 
