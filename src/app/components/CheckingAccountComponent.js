@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const CheckingAccountComponent = ({ selectedCoin }) => {
+const CheckingAccountComponent = ({ selectedCoin, handleTransactionClick }) => {
   const [activeTab, setActiveTab] = useState("history");
 
   // 초기 샘플 데이터
@@ -26,7 +26,7 @@ const CheckingAccountComponent = ({ selectedCoin }) => {
   const withdraws = coinData.transactions.filter((tx) => tx.status === "출금 완료");
 
   return (
-    <section className="flex-1 bg-white shadow-md rounded-lg p-4">
+    <section className="flex-1 bg-white shadow-md rounded-lg p-4 md:order-1">
       {/* 상단 코인 정보 */}
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold">{coinData.name} ({coinData.symbol})</h2>
@@ -47,6 +47,21 @@ const CheckingAccountComponent = ({ selectedCoin }) => {
           <span>0 KRW</span>
         </div>
       </div>
+
+      <div className="mt-4 border-t border-b border-gray-100">
+        <div className="flex">
+          <button onClick={handleTransactionClick} className="flex-1 text-center py-2 font-bold text-red-500 hover:text-red-600 transition-all duration-300 ease-in-out">
+            매수
+          </button>
+          <button onClick={handleTransactionClick} className="flex-1 text-center py-2 font-bold text-blue-500 hover:text-blue-600 transition-all duration-300 ease-in-out">
+            매도
+          </button>
+          <button onClick={handleTransactionClick} className="flex-1 text-center py-2 font-bold text-black hover:text-gray-800 transition-all duration-300 ease-in-out">
+            출금
+          </button>
+        </div>
+      </div>
+
 
       {/* 탭 메뉴 */}
       <div className="mt-4 border-t border-b border-gray-100">

@@ -7,7 +7,7 @@ const AssetsStatusComponent = ({ coins, coinClick }) => {
     const [activeTab, setActiveTab] = useState("전체");
   
     return (
-      <section className="flex-[1.3] bg-white shadow-md p-4">
+      <section className="flex-[1.3] bg-white shadow-md p-4 md:flex-col order-2">
         <div className="mb-4">
           <h2 className="text-sm font-medium mb-2">총 보유 자산</h2>
           <div className="text-2xl font-bold">

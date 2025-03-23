@@ -86,7 +86,7 @@ const CoinList = () => {
   
 
   return (
-    <section className="flex-1 bg-white shadow-md">
+    <section className="flex-1 bg-white shadow-md lg:block hidden md:flex-col order-3 ">
 
       <div className="w-full flex items-center mb-4">
         <div className="flex-grow relative">

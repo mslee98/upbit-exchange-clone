@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-      <footer className="bg-gray-100 text-gray-600 text-xs py-6">
+      <footer className="bg-gray-100 text-gray-600 text-xs py-6 md:block hidden">
         <div className="container mx-auto px-4">
           {/* 상단 네비게이션 + 소셜 아이콘 */}
           <div className="flex justify-between items-start border-b border-gray-300 pb-4">

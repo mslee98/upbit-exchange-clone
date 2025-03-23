@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
               <Header/>
 
               {/* Main Content */}
-              <main className="flex-1 flex p-3 px-16 gap-3">
+              <main className="flex-1 flex p-3 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 gap-3 flex-col md:flex-row">
                 {children}
               </main>
 

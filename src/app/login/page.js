@@ -19,18 +19,22 @@ const Login = () => {
         setFormData((prev) => ({ ...prev, [name]: value }));
         setError(""); // 입력값 변경 시 에러 초기화
     };
-
-
     
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setLoading(true);
+
         const { id, password } = formData;
-        login(id, password)
+        const errorMessage = await login(id, password)
 
         setLoading(true);
-        setError("");
+        if (errorMessage) {
+            setError(errorMessage);  // 받은 에러 메시지를 상태로 설정
+        }
 
+        setLoading(false);
 
         // try {
         //     // 입력한 id를 통해 해당 email을 가져오기 위해 profiles 테이블에서 검색

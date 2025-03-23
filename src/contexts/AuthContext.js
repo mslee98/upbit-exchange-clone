@@ -45,49 +45,70 @@ export const AuthProvider = ({ children }) => {
           router.push("/exchange");
         }
       };
+
+      useEffect(() => {
+        const session = supabase.auth.getSession();
+        if (session) {
+          setUser(session.user);
+        }
+    
+        const { data: authListener } = supabase.auth.onAuthStateChange(
+          (event, session) => {
+            setUser(session?.user ?? null);
+            setLoading(false);
+            if (!session) {
+              router.push('/login');
+            }
+          }
+        );
+    
+        return () => {
+          authListener?.unsubscribe();
+        };
+      }, [router]);
     
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const checkSession = async () => {
-            const { data, error } = await supabase.auth.getSession();
-            if (data?.session) {
-                const userId = data.session.user.id;
+    //     const checkSession = async () => {
+    //         const { data, error } = await supabase.auth.getSession();
+    //         if (data?.session) {
+    //             const userId = data.session.user.id;
                 
-                const { data: profile, error: profileError } = await supabase
-                    .from("profiles")
-                    .select("id, username, approve, phone")
-                    .eq("id", userId)
-                    .single();
+    //             const { data: profile, error: profileError } = await supabase
+    //                 .from("profiles")
+    //                 .select("id, username, approve, phone")
+    //                 .eq("id", userId)
+    //                 .single();
 
-                if (profileError || !profile) {
-                    console.error("프로필 정보를 불러오지 못했습니다.");
-                    setUser(null);
-                } else if (!profile.approve) {
-                    console.warn("승인되지 않은 사용자입니다.");
-                    setUser(null);
-                    router.push("/login");
-                } else {
-                    setUser(profile);
-                }
-            } else {
-                setUser(null);  // 세션이 없으면 초기화
-            }
-            setLoading(false);
-        };
+    //             if (profileError || !profile) {
+    //                 console.error("프로필 정보를 불러오지 못했습니다.");
+    //                 setUser(null);
+    //             } else if (!profile.approve) {
+    //                 console.warn("승인되지 않은 사용자입니다.");
+    //                 setUser(null);
+    //                 router.push("/login");
+    //             } else {
+    //                 setUser(profile);
+    //             }
+    //         } else {
+    //             setUser(null);  // 세션이 없으면 초기화
+    //         }
+    //         setLoading(false);
+    //     };
 
-        // 새로고침 시 쿠키에서 세션 확인
-        const sessionFromCookie = document.cookie
-            .split('; ')
-            .find(row => row.startsWith('supabase-auth-token='));
+    //     // 새로고침 시 쿠키에서 세션 확인
+    //     const sessionFromCookie = document.cookie
+    //         .split('; ')
+    //         .find(row => row.startsWith('supabase-auth-token='));
 
-        if (sessionFromCookie) {
-            // 쿠키에서 세션 정보가 있으면 복원
-            checkSession();
-        } else {
-            setLoading(false);  // 세션이 없으면 로딩 끝
-        }
-    }, [user]);
+    //     if (sessionFromCookie) {
+    //         // 쿠키에서 세션 정보가 있으면 복원
+    //         checkSession();
+    //     } else {
+    //         setLoading(false);  // 세션이 없으면 로딩 끝
+    //     }
+    // }, [user]);
 
     return (
         <AuthContext.Provider value={{ user, setUser, loading, login, logout }}>
