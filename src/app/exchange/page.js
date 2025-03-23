@@ -1,12 +1,12 @@
 'use client'
 
-import AssetsStatusComponent from "./components/AssetsStatusComponent";
-import CheckingAccountComponent from "./components/CheckingAccountComponent";
-import CoinList from "./components/CoinList";
-
 import { useState } from "react";
 
-export default function Home() {
+import AssetsStatusComponent from "../components/AssetsStatusComponent";
+import CheckingAccountComponent from "../components/CheckingAccountComponent";
+import CoinList from "../components/CoinList";
+
+export default function Exchange() {
 
   const sampleData = [
     {
