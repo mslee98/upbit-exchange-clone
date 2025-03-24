@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 
 import { IoIosTimer } from "react-icons/io";
-import { useAuth } from "@/contexts/AuthContext";
+
+import { useAuth } from "../../contexts/AuthContext";
 
 import { usePathname } from "next/navigation";
 
@@ -26,11 +27,11 @@ const Header = () => {
 
   // 로그인 상태에서 타이머 감소
   useEffect(() => {
-    if (!user) {
+    if (user) {
       setTimeLeft(179); // 로그아웃 시 초기화
       return;
     }
-
+    
     const interval = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
@@ -53,6 +54,8 @@ const Header = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   }
+
+  if(pathname.startsWith('/adm')) return null;
 
   return (
     <>

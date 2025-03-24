@@ -8,6 +8,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [role, setRole] = useState(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
     const pathname = usePathname();
@@ -16,13 +17,14 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         await supabase.auth.signOut();  // Supabase 로그아웃 함수
         setUser(null);  // 상태 초기화
+        setRole(null);
     };
 
     const login = async (id, password) => {
 
         const { data: profileData, error: profileError } = await supabase
             .from("profiles")
-            .select("id, email, approved")
+            .select("id, email, approved, role")
             .eq("username", id) // eq는 조건을 지정하는 올바른 방식입니다.
             .single();
 
@@ -40,11 +42,18 @@ export const AuthProvider = ({ children }) => {
         }
 
         const { data, error } = await supabase.auth.signInWithPassword({ email: profileData.email, password });
+
         if (error) {
           console.error('로그인 실패:', error.message);
         } else {
           setUser(data.user);
-          router.push("/exchange");
+          setRole(profileData.role); 
+
+          if(profileData.role === 'admin') {
+            router.push("/adm");
+          } else {
+            router.push("/exchange");
+          }
         }
       };
 
@@ -53,8 +62,23 @@ export const AuthProvider = ({ children }) => {
           const session = await supabase.auth.getSession(); // 비동기적으로 세션을 받아옵니다.
           if (session?.data.session) {
             setUser(session.data.session.user);  // 세션이 있으면 유저 설정
+            const userId = session.data.session.user.id;
+
+             // ✅ 프로필에서 role 가져오기
+             const { data: profile, error } = await supabase
+             .from("profiles")
+             .select("role")
+             .eq("id", userId)
+             .single();
+
+             if (!error && profile) {
+                setRole(profile.role);
+            }
+
           } else {
             setUser(null);  // 세션이 없으면 유저를 null로 설정
+            setRole(null);
+
           }
           setLoading(false); // 로딩 상태를 해제
         };
@@ -79,9 +103,24 @@ export const AuthProvider = ({ children }) => {
         );
       
         return () => {
-          authListener?.unsubscribe();
+          // authListener?.unsubscribe();
+          authListener?.subscription?.unsubscribe();
         };
       }, [router]);
+
+      useEffect(() => {
+          console.log("role:", role);
+          console.log("pathname:", pathname);
+      
+          // role이 null인 경우에는 리다이렉트하지 않도록 방어 코드 추가
+          if (role === null) {
+              return;  // role이 null일 경우에는 리다이렉트를 처리하지 않음
+          }
+      
+          if (role !== "admin" && pathname.startsWith("/adm")) {
+              router.push("/"); // 'user'는 '/adm' 경로에 접근할 수 없으므로 '/'로 리다이렉트
+          }
+      }, [role, pathname]);
     
 
     // useEffect(() => {

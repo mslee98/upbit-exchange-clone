@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import supabase from "../../Lib/supabase";
 import Link from "next/link";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
+import LogoHeader from "../components/signup/LogoHeader";
 
 const Login = () => {
     const [formData, setFormData] = useState({ id: "", password: "" });
@@ -38,8 +38,10 @@ const Login = () => {
     };
 
     return (
-        <div className="w-full h-full flex justify-center items-center">
-            <div className="p-8 rounded-lg w-128">
+        <div className="w-full flex justify-center mb-20">
+            
+            <div className="p-8 rounded-lg w-128 ">
+                <LogoHeader/>
                 <h2 className="text-2xl font-semibold text-center mb-6">로그인</h2>
                 {error && <p className="text-red-500 text-sm text-center">{error}</p>}
                 <form className="space-y-4" onSubmit={handleSubmit}>

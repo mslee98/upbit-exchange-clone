@@ -1,4 +1,14 @@
+'use client'
+
+import { usePathname } from "next/navigation";
+
 const Footer = () => {
+    const router = usePathname();
+
+    if(router.startsWith('/adm')) {
+        return;
+    }
+
     return (
       <footer className="bg-gray-100 text-gray-600 text-xs py-6 md:block hidden">
         <div className="container mx-auto px-4">

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import AssetsStatusComponent from "../components/AssetsStatusComponent";
 import CheckingAccountComponent from "../components/CheckingAccountComponent";
 import CoinList from "../components/CoinList";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from '../../contexts/AuthContext'
 import Image from "next/image";
 import moment from "moment";
 

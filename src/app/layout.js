@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Security from "./components/Security";
 
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider } from "../contexts/AuthContext";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -25,29 +25,19 @@ export default function RootLayout({ children }) {
 
 
   return (
-    <AuthProvider>
-      <html lang="euc-kr">
-        <body
-          className={`${roboto.variable} antialiased bg-[#eaecf0]`}
-        >
-
-            <Security/>
-            <div className="flex flex-col min-h-screen">
-              {/* Header */}
-              <Header/>
-
-
-              {/* Main Content */}
-              {/* <main className="flex-1 flex p-3 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 gap-3 flex-col md:flex-row"> */}
-              <main>
-                {children}
-              </main>
-
-              {/* Footer */}
-              <Footer/>
-            </div>
-        </body>
-      </html>
-    </AuthProvider>
+    <html lang="ko">
+      <AuthProvider>
+          <html lang="ko">
+            <body className={`${roboto.variable} antialiased bg-[#eaecf0]`}>
+              <Security />
+              <div className="flex flex-col min-h-screen">
+                <Header />
+                <main>{children}</main>
+                <Footer />
+              </div>
+            </body>
+          </html>
+      </AuthProvider>
+    </html>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from "react";
-import LogoHeader from './LogoHeader';
 
 const SignUpAgreement = ({setNextYn}) => {
 
