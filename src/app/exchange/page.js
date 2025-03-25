@@ -10,6 +10,10 @@ import { useAuth } from '../../contexts/AuthContext'
 import Image from "next/image";
 import moment from "moment";
 
+import PaymentComponent from '../components/PaymentComponent';
+
+import supabase from '../../Lib/supabase';
+
 const sampleData = [
   {
     name: "총 자산",
@@ -27,7 +31,7 @@ const sampleData = [
     percentage: "100%",
     image: "/images/coins/XRP.png",
     transactions: [
-      { date: "2025.03.22", status: "입금 완료", amount: "562 XRP" },
+      // { date: "2025.03.22", status: "입금 완료", amount: "562 XRP" },
     ],
   },
   {
@@ -37,8 +41,8 @@ const sampleData = [
     percentage: "0.00%",
     image: "/images/coins/BTC.png",
     transactions: [
-      { date: "2021.05.31", status: "입금 완료", amount: "0.0005 BTC" },
-      { date: "2021.05.24", status: "출금 완료", amount: "0.0003 BTC" },
+      // { date: "2021.05.31", status: "입금 완료", amount: "0.0005 BTC" },
+      // { date: "2021.05.24", status: "출금 완료", amount: "0.0003 BTC" },
     ],
   },
   {
@@ -48,8 +52,8 @@ const sampleData = [
     percentage: "0.00%",
     image: "/images/coins/ETH.png",
     transactions: [
-      { date: "2021.06.01", status: "입금 완료", amount: "0.02 ETH" },
-      { date: "2021.05.20", status: "출금 완료", amount: "0.005 ETH" },
+      // { date: "2021.06.01", status: "입금 완료", amount: "0.02 ETH" },
+      // { date: "2021.05.20", status: "출금 완료", amount: "0.005 ETH" },
     ],
   },
   {
@@ -186,6 +190,48 @@ export default function Exchange() {
 
   const [selectedCoin, setSelectedCoin] = useState(null);
 
+  const [paymentModalYn, setPaymentModalYn] = useState(false);
+
+  const [xrpPrice, setXrpPrice] = useState(0);
+
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => { 
+
+    if(!user) return
+
+    const fetchUsers = async () => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('id, username, phone, role, approved, balance, input_dt')
+        .eq('id',user.id)
+
+      if (error) {
+        console.error(error);
+      } else {
+        setUserData(data[0]);
+      }
+      
+    };
+
+    fetchUsers();
+  }, [user]);
+
+  useEffect(() => {
+    const fetchCurrencies = async () => {
+      const { data, error } = await supabase
+        .from('currencies')
+        .select('*')
+        .eq('symbol','XRP')
+        .single()
+
+        setXrpPrice(data.current_price);
+    }
+
+    fetchCurrencies();
+  }, [])
+
+
   const handleClick = (coin) => {
     setSelectedCoin(coin);
   };
@@ -268,9 +314,14 @@ export default function Exchange() {
 
   return (
     <>
+      {
+        paymentModalYn && (
+          <PaymentComponent setPaymentModalYn={setPaymentModalYn} handleTransactionClick={handleTransactionClick} userData={userData} xrpPrice={xrpPrice}/>
+        )
+      }
 
       {showTransactionModal && (
-        <div className="fixed inset-0 bg-opacity-50 backdrop-blur-md flex justify-center items-center z-20">
+        <div className="fixed inset-0 bg-opacity-50 backdrop-blur-md flex justify-center items-center z-60">
           <div className="bg-white rounded-lg shadow-lg max-w-md w-full overflow-y-auto max-h-[80vh]">
             <div className="bg-blue-500 text-white w-full p-4 rounded-t-lg text-center">
               <h2 className="text-xl font-bold">거래 중지 안내</h2>
@@ -285,9 +336,9 @@ export default function Exchange() {
               />
             </div>
 
-            <div className="m-4 text-center text-lg font-semibold">
-              <p className="text-xs">모든 가상자산 출금은 <strong>FDS(이상금융거래탐지시스템)</strong> 심사 후 진행되며, 금융 사고 패턴으로 탐지되는 경우 최대 72시간 동안 출금이 제한 될 수 있습니다.</p>
-            </div>
+            {/* <div className="m-4 text-center text-lg font-semibold"> */}
+              {/* <p className="text-xs">모든 가상자산 출금은 <strong>FDS(이상금융거래탐지시스템)</strong> 심사 후 진행되며, 금융 사고 패턴으로 탐지되는 경우 최대 72시간 동안 출금이 제한 될 수 있습니다.</p> */}
+            {/* </div> */}
 
 
             <div className="text-xs text-gray-700 bg-gray-300 p-4 m-4 rounded-lg max-h-[30vh] overflow-y-auto">
@@ -332,10 +383,10 @@ export default function Exchange() {
         )}
 
         <div className="flex-1 flex p-3 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 gap-3 flex-col md:flex-row">
-          <AssetsStatusComponent coins={sampleData} coinClick={handleClick} />
+          <AssetsStatusComponent userData={userData} xrpPrice={xrpPrice} coins={sampleData} coinClick={handleClick} />
 
           {/* Center Content */}
-          <CheckingAccountComponent selectedCoin={selectedCoin} handleTransactionClick={handleTransactionClick}/>
+          <CheckingAccountComponent userData={userData} xrpPrice={xrpPrice} selectedCoin={selectedCoin} setPaymentModalYn={setPaymentModalYn}/>
 
           {/* Right Sidebar */}
           <CoinList/>

@@ -3,15 +3,19 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const AssetsStatusComponent = ({ coins, coinClick }) => {
+const AssetsStatusComponent = ({ coins, coinClick, userData, xrpPrice}) => {
     const [activeTab, setActiveTab] = useState("전체");
-  
+
+    if (!userData && !xrpPrice) {
+      return <div>Loading...</div>; // userData가 없을 경우 로딩 상태 표시
+    }
+
     return (
       <section className="flex-[1.3] bg-white shadow-md p-4 md:flex-col order-2">
         <div className="mb-4">
           <h2 className="text-sm font-medium mb-2">총 보유 자산</h2>
           <div className="text-2xl font-bold">
-            {coins[0].balance} <span className="font-light">KRW</span>
+            {userData?.balance ? userData.balance * xrpPrice : 0} <span className="font-light">KRW</span>
           </div>
           <p className="text-sm text-gray-500">≈ {coins[0].balanceToBit ? coins[0].balanceToBit : 0} BTC</p>
         </div>

@@ -21,5 +21,5 @@ export function middleware(req) {
 
 // 미들웨어를 적용할 경로 설정 (선택)
 export const config = {
-  matcher: ["/exchange", "/profile"], // 보호할 경로 목록
+  matcher: ["/exchange", "/adm"], // 보호할 경로 목록
 };
