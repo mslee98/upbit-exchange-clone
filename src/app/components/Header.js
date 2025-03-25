@@ -25,8 +25,11 @@ const Header = () => {
     { name: "NFT", path: "/nft" },
   ];
 
+  console.log(user)
+
   // 로그인 상태에서 타이머 감소
   useEffect(() => {
+
     if (user) {
       setTimeLeft(179); // 로그아웃 시 초기화
       return;

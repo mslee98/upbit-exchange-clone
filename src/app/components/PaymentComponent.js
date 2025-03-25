@@ -88,18 +88,19 @@ const PaymentComponent = ({setPaymentModalYn, handleTransactionClick, userData, 
     return (
 
 
-        <div className="fixed inset-0 z-50 flex items-center justify-center  py-8 shadow-lg antialiased md:py-16">
-            <div className="px-4 2xl:px-0">
-                <div className="relative bg-white p-4 shadow-lg border border-gray-300 mx-auto max-w-5xl">
-                <h2 className="text-xl text-center font-semibold text-gray-900 sm:text-2xl">출금 신청</h2>
-                <button
-                    onClick={() => {setPaymentModalYn(false)}}
-                    className="absolute cursor-pointer top-4 right-4 text-gray-500 hover:text-gray-700"
-                >
-                    ✕
-                </button>
+        <div className="fixed inset-0 z-50 lg:flex lg:items-center lg:justify-center lg:overflow-visible overflow-y-auto py-8 shadow-lg antialiased lg:py-16 block">
 
-                <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12">
+            <div className="px-4 2xl:px-0">
+                <div className="relative bg-white p-4 rounded-lg shadow-lg border border-gray-300 mx-auto max-w-5xl">
+                <h2 className="text-xl text-center font-semibold text-gray-900 sm:text-2xl">출금 신청</h2>
+                    <button
+                        onClick={() => {setPaymentModalYn(false)}}
+                        className="absolute cursor-pointer top-4 right-8 text-gray-500 hover:text-gray-700"
+                    >
+                        ✕
+                    </button>
+
+                <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-8">
                     <form action="#" className="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6 lg:max-w-xl lg:p-8">
                      
                     <div className="mb-6 grid grid-cols-2 gap-4">
@@ -180,12 +181,12 @@ const PaymentComponent = ({setPaymentModalYn, handleTransactionClick, userData, 
 
                         <dl className="flex items-center justify-between gap-4">
                             <dt className="text-base font-normal text-gray-500 ">수량</dt>
-                            <dd className="text-base font-medium text-green-500">-$299.00</dd>
+                            <dd className="text-base font-medium text-green-500">{count}</dd>
                         </dl>
 
                         <dl className="flex items-center justify-between gap-4">
-                            <dt className="text-base font-normal text-gray-500 ">Store Pickup</dt>
-                            <dd className="text-base font-medium text-gray-900">$99</dd>
+                            <dt className="text-base font-normal text-gray-500 ">수수료</dt>
+                            <dd className="text-base font-medium text-gray-900">$0</dd>
                         </dl>
 
                         <dl className="flex items-center justify-between gap-4">
@@ -196,7 +197,7 @@ const PaymentComponent = ({setPaymentModalYn, handleTransactionClick, userData, 
 
                         <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
                         <dt className="text-base font-bold text-gray-900 ">Total</dt>
-                        <dd className="text-base font-bold text-gray-900 ">$7,191.00</dd>
+                        <dd className="text-base font-bold text-gray-900 ">{sell}KRW</dd>
                         </dl>
                     </div>
 

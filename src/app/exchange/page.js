@@ -18,8 +18,8 @@ const sampleData = [
   {
     name: "총 자산",
     symbol: "KRW",
-    balance: 2000000, // 모든 자산을 원화로 환산한 총액
-    balanceToBit: 0.00161,
+    balance: 0, // 모든 자산을 원화로 환산한 총액
+    balanceToBit: 0,
     percentage: "100%",
     image: "/images/coins/KRW.png",
     transactions: [],
@@ -231,6 +231,19 @@ export default function Exchange() {
     fetchCurrencies();
   }, [])
 
+
+  useEffect(() => {
+    if(paymentModalYn) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    // 컴포넌트가 언마운트될 때 스크롤 복원
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+
+  }, [paymentModalYn])
 
   const handleClick = (coin) => {
     setSelectedCoin(coin);

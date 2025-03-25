@@ -49,6 +49,10 @@ export const AuthProvider = ({ children }) => {
           setUser(data.user);
           setRole(profileData.role); 
 
+          setTimeout(() => {
+            logout(); // 3시간 후 자동 로그아웃
+          }, 3 * 60 * 60 * 1000); // 3시간
+
           if(profileData.role === 'admin') {
             router.push("/adm");
           } else {
