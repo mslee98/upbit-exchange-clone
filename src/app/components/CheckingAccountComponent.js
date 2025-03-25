@@ -21,7 +21,7 @@ const CheckingAccountComponent = ({ selectedCoin, setPaymentModalYn, userData, x
 
   // 초기 샘플 데이터
   const initData = {
-    name: "엑스알피(리플)",
+    name: "원화",
     symbol: "KRW",
     balance: 0, // 2,000,000 KRW를 XRP로 변환 (1 XRP = 3551 KRW)
     balanceToKrw: 0,

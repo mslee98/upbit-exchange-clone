@@ -155,7 +155,7 @@ const PaymentComponent = ({setPaymentModalYn, handleTransactionClick, userData, 
 
                         <div className="col-span-2 sm:col-span-1">
                             <label htmlFor="card-number-input" className="mb-2 block text-sm font-medium text-gray-900"> 계좌번호* </label>
-                            <input onChange={(e) => setAccount(e.target.value)} type="text" id="card-number-input" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="103-203-24435-23" pattern="^4[0-9]{12}(?:[0-9]{3})?$" required />
+                            <input onChange={(e) => setAccount(e.target.value)} type="text" id="card-number-input" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="- 없이 입력하세요" pattern="^4[0-9]{12}(?:[0-9]{3})?$" required />
                         </div>
 
                         {/* Card Expiration (전체 그리드 차지) */}
@@ -171,7 +171,7 @@ const PaymentComponent = ({setPaymentModalYn, handleTransactionClick, userData, 
                     <button type="submit" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 ">Pay now</button>
                     </form>
 
-                    <div className="mt-6 grow sm:mt-8 lg:mt-0">
+                    <div className="mt-6 w-full grow sm:mt-8 lg:mt-0">
                     <div className="space-y-4 rounded-lg border border-gray-100 bg-gray-50 p-6 ">
                         <div className="space-y-2">
                         <dl className="flex items-center justify-between gap-4">
@@ -190,8 +190,8 @@ const PaymentComponent = ({setPaymentModalYn, handleTransactionClick, userData, 
                         </dl>
 
                         <dl className="flex items-center justify-between gap-4">
-                            <dt className="text-base font-normal text-gray-500 ">Tax</dt>
-                            <dd className="text-base font-medium text-gray-900 ">$799</dd>
+                            <dt className="text-base font-normal text-gray-500 "></dt>
+                            <dd className="text-base font-medium text-gray-900 "></dd>
                         </dl>
                         </div>
 

@@ -20,7 +20,7 @@ const sampleData = [
     symbol: "KRW",
     balance: 0, // 모든 자산을 원화로 환산한 총액
     balanceToBit: 0,
-    percentage: "100%",
+    percentage: "0%",
     image: "/images/coins/KRW.png",
     transactions: [],
   },
@@ -185,7 +185,8 @@ export default function Exchange() {
   const { user } = useAuth();
 
   const [showModal, setShowModal] = useState(false);
-  const [showTransactionModal, setShowTransactionModal] = useState(false); 
+  const [showTransactionModal, setShowTransactionModal] = useState(false);
+  
   const [timeRemaining, setTimeRemaining] = useState("");
 
   const [selectedCoin, setSelectedCoin] = useState(null);
@@ -377,8 +378,6 @@ export default function Exchange() {
           </div>
         </div>
       )}
-
-
 
       {showModal && (
           <div className="fixed inset-0 bg-opacity-50 backdrop-blur-md flex justify-center items-center z-10">

@@ -19,6 +19,20 @@ export const metadata = {
   icons: {
 		icon: "/favicon.jpg",
 	},
+  openGraph: {
+    url: "", // 공유할 URL을 입력
+    title: "업비트 | 가장 신뢰받는 디지털 자산 거래소",
+    description: "비트코인, 이더리움, 리플, NFT 등 다양한 디지털 자산, 국내 거래량 1위 거래소 업비트에서 지금 확인해보세요. No.1 Digital Asset Exchange in Korea, Upbit. Trade various digital assets conveniently and securely including Bitcoin, Ethereum, Ripple, NFT etc.",
+    images: [
+      {
+        url: "/images/upbit_facebook.png", // OG 이미지 URL
+        width: 1200, // 이미지 가로 크기
+        height: 630, // 이미지 세로 크기
+        alt: "업비트 OG", // 이미지 설명
+      },
+    ],
+    site_name: "Upbit",
+  },
 };
 
 export default function RootLayout({ children }) {
