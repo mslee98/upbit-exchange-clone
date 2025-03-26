@@ -49,6 +49,9 @@ export const AuthProvider = ({ children }) => {
           setUser(data.user);
           setRole(profileData.role); 
 
+          const loginTime = Date.now();
+          localStorage.setItem("loginTime", loginTime);
+
           setTimeout(() => {
             logout(); // 3시간 후 자동 로그아웃
           }, 3 * 60 * 60 * 1000); // 3시간
@@ -60,6 +63,23 @@ export const AuthProvider = ({ children }) => {
           }
         }
       };
+
+      useEffect(() => {
+        const loginTime = localStorage.getItem("loginTime");
+      
+        if (loginTime) {
+          const elapsedTime = Date.now() - Number(loginTime);
+          const remainingTime = 3 * 60 * 60 * 1000 - elapsedTime;
+      
+          if (remainingTime > 0) {
+            setTimeout(() => {
+              logout(); // 남은 시간 후 자동 로그아웃
+            }, remainingTime);
+          } else {
+            logout(); // 3시간이 지났으면 즉시 로그아웃
+          }
+        }
+      }, []);
 
       useEffect(() => {
         const checkSession = async () => {
@@ -99,7 +119,6 @@ export const AuthProvider = ({ children }) => {
                 pathname !== "/login" && 
                 pathname !== "/signup" && 
                 pathname !== "/") {
-
               
               router.push('/login');
             }
@@ -113,8 +132,6 @@ export const AuthProvider = ({ children }) => {
       }, [router]);
 
       useEffect(() => {
-          console.log("role:", role);
-          console.log("pathname:", pathname);
       
           // role이 null인 경우에는 리다이렉트하지 않도록 방어 코드 추가
           if (role === null) {
