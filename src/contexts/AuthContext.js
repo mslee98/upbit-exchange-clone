@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
 
           setTimeout(() => {
             logout(); // 3시간 후 자동 로그아웃
-          }, 3 * 60 * 60 * 1000); // 3시간
+          }, 30 * 60 * 1000); // 3시간
 
           if(profileData.role === 'admin') {
             router.push("/adm");
@@ -63,23 +63,39 @@ export const AuthProvider = ({ children }) => {
           }
         }
       };
+      useEffect(() => {
+          if (user && (pathname === "/login" || pathname === "/signup")) {
+              router.push("/"); // 로그인된 상태에서는 메인 페이지로 리다이렉트
+          }
+      }, [user, pathname, router]);
+
 
       useEffect(() => {
         const loginTime = localStorage.getItem("loginTime");
       
         if (loginTime) {
-          const elapsedTime = Date.now() - Number(loginTime);
-          const remainingTime = 3 * 60 * 60 * 1000 - elapsedTime;
-      
-          if (remainingTime > 0) {
-            setTimeout(() => {
-              logout(); // 남은 시간 후 자동 로그아웃
-            }, remainingTime);
-          } else {
-            logout(); // 3시간이 지났으면 즉시 로그아웃
-          }
+            const checkRemainingTime = () => {
+                const elapsedTime = Date.now() - Number(loginTime);
+                const remainingTime = 3 * 60 * 60 * 1000 - elapsedTime; // 1분
+    
+                // const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+                // const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                // const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+    
+                // console.log(`인증 ${hours}시간 ${minutes}분 ${seconds}초 남았습니다.`);
+                
+                if (remainingTime <= 0) {
+                    logout(); // 시간이 지나면 로그아웃
+                }
+            };
+    
+            checkRemainingTime(); // 즉시 체크
+    
+            const interval = setInterval(checkRemainingTime, 60 * 1000); // 1분마다 체크
+    
+            return () => clearInterval(interval); // 컴포넌트 언마운트 시 타이머 정리
         }
-      }, []);
+    }, []);
 
       useEffect(() => {
         const checkSession = async () => {
